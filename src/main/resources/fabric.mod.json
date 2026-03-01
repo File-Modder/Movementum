@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "id": "movementum",
+  "version": "${version}",
+  "name": "movementum",
+  "description": "",
+  "authors": [],
+  "contact": {},
+  "license": "All-Rights-Reserved",
+  "icon": "assets/movementum/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      "File.movementum.client.MovementumClient"
+    ],
+    "main": [
+      "File.movementum.Movementum"
+    ]
+  },
+  "mixins": [
+    "movementum.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric-api": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}
