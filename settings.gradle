@@ -1,17 +1,9 @@
 pluginManagement {
     repositories {
         maven {
-            name = "Fabric"
-            url = "https://maven.fabricmc.net/"
+            name = 'Fabric'
+            url = 'https://maven.fabricmc.net/'
         }
-
-        maven {
-            name = "RedlanceMinecraft"
-            url = "https://repo.redlance.org/public"
-        }
-
-        mavenLocal()
         gradlePluginPortal()
-        mavenCentral()
     }
 }

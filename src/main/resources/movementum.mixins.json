@@ -4,12 +4,13 @@
   "package": "File.movementum.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "CameraMixin"
-    , "CameraAccessor"
-    , "GameRendererMixin"
+    "CameraAccessor",
+    "CameraMixin",
+    "GameRendererMixin"
+
   ],
   "client": [
-
+    "EntityMixin"
   ],
   "injectors": {
     "defaultRequire": 1

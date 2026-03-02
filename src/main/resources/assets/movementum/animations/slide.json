@@ -1,0 +1,110 @@
+{
+  "version": 1,
+  "poses": [
+    {
+      "timestamp": 0,
+      "head": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "pitch": 0,
+        "yaw": 0,
+        "roll": 0
+      },
+      "body": {
+        "x": 0,
+        "y": -4,
+        "z": 0,
+        "pitch": 70,
+        "yaw": 0,
+        "roll": 0
+      },
+      "leftArm": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "pitch": -90,
+        "yaw": 0,
+        "roll": -20
+      },
+      "rightArm": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "pitch": -90,
+        "yaw": 0,
+        "roll": 20
+      },
+      "leftLeg": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "pitch": 110,
+        "yaw": 0,
+        "roll": 0
+      },
+      "rightLeg": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "pitch": 110,
+        "yaw": 0,
+        "roll": 0
+      }
+    },
+    {
+      "timestamp": 0.5,
+      "head": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "pitch": 10,
+        "yaw": 0,
+        "roll": 0
+      },
+      "body": {
+        "x": 0,
+        "y": -4,
+        "z": 0,
+        "pitch": 75,
+        "yaw": 0,
+        "roll": 0
+      },
+      "leftArm": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "pitch": -95,
+        "yaw": 0,
+        "roll": -20
+      },
+      "rightArm": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "pitch": -95,
+        "yaw": 0,
+        "roll": 20
+      },
+      "leftLeg": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "pitch": 105,
+        "yaw": 0,
+        "roll": 0
+      },
+      "rightLeg": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "pitch": 105,
+        "yaw": 0,
+        "roll": 0
+      }
+    }
+  ],
+  "isLooped": true,
+  "returnTick": 10
+}
+

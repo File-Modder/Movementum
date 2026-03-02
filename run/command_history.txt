@@ -1,1 +1,7 @@
 /summon minecraft:pig
+/summon minecraft:painting
+/summon minecraft:pig
+/summon minecraft:panda
+/effect give Player273 minecraft:speed
+/effect give Player273 minecraft:speed infinite 255
+/effect clear
