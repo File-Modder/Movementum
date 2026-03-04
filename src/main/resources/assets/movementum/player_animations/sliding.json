@@ -1,4 +1,5 @@
 {
+    "id": "movementum:sliding",
     "armature": {
         "joints": ["body", "head", "arm.L", "leg.L", "arm.R", "leg.R"],
         "hierarchy": [
@@ -118,3 +119,4 @@
     ],
     "fps": 30.0
 }
+

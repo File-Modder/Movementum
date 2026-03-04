@@ -1,0 +1,3 @@
+classTweaker v1 named
+accessible field net/minecraft/registry/entry/RegistryEntry$Reference registryKey Lnet/minecraft/registry/RegistryKey;
+accessible method net/minecraft/registry/entry/RegistryEntry$Reference setRegistryKey (Lnet/minecraft/registry/RegistryKey;)V

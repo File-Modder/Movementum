@@ -1,16 +1,14 @@
 {
-  "required": true,
+  "required": false,
   "minVersion": "0.8",
   "package": "File.movementum.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "CameraAccessor",
-    "CameraMixin",
     "GameRendererMixin"
-
   ],
   "client": [
-    "EntityMixin"
+  "EntityMixin"
   ],
   "injectors": {
     "defaultRequire": 1

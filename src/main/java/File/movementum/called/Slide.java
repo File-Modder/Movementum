@@ -1,15 +1,21 @@
 package File.movementum.called;
 
 import File.movementum.client.MovementKeybindings;
+import com.zigythebird.playeranim.animation.PlayerAnimationController;
+import com.zigythebird.playeranim.api.PlayerAnimationAccess;
+import com.zigythebird.playeranimcore.animation.AnimationController;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
 
 import java.util.List;
+
+import static com.zigythebird.playeranim.PlayerAnimLibMod.ANIMATION_LAYER_ID;
 
 public class Slide {
 
@@ -48,15 +54,11 @@ public class Slide {
 
                 // Start animation when slide begins
                 if (!wasSliding && client.player != null) {
-                    // AnimationController.playSlideAnimation((AbstractClientPlayerEntity) client.player);
+                    PlayerAnimationController controller = (PlayerAnimationController) PlayerAnimationAccess.getPlayerAnimationLayer(
+                            client.player, ANIMATION_LAYER_ID);
+                    controller.triggerAnimation(Identifier.of("movementum", "sliding"));
                     wasSliding = true;
                 }
-            } else {
-                if (wasSliding && client.player != null) {
-                    // AnimationController.stopSlideAnimation((AbstractClientPlayerEntity) client.player);
-                    wasSliding = false;
-                }
-                isSliding = false;
             }
         });
 
