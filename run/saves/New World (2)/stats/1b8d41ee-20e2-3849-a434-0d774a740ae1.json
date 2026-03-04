@@ -1,0 +1,27 @@
+{
+  "stats": {
+    "minecraft:picked_up": {
+      "minecraft:painting": 1
+    },
+    "minecraft:custom": {
+      "minecraft:time_since_rest": 1420,
+      "minecraft:walk_one_cm": 4974,
+      "minecraft:leave_game": 1,
+      "minecraft:walk_under_water_one_cm": 818,
+      "minecraft:play_time": 1420,
+      "minecraft:jump": 1,
+      "minecraft:time_since_death": 1420,
+      "minecraft:drop": 1,
+      "minecraft:sprint_one_cm": 21443,
+      "minecraft:total_world_time": 1462,
+      "minecraft:fly_one_cm": 7146,
+      "minecraft:walk_on_water_one_cm": 620,
+      "minecraft:crouch_one_cm": 80,
+      "minecraft:sneak_time": 36
+    },
+    "minecraft:dropped": {
+      "minecraft:painting": 1
+    }
+  },
+  "DataVersion": 4671
+}
