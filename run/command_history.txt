@@ -6,3 +6,5 @@
 /effect give Player273 minecraft:speed infinite 255
 /effect clear
 /summon minecraft:mannequin
+/weather clear
+/time set day
