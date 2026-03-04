@@ -1,86 +1,74 @@
 package File.movementum.called;
 
 import File.movementum.client.MovementKeybindings;
-import com.zigythebird.playeranim.animation.PlayerAnimationController;
-import com.zigythebird.playeranim.api.PlayerAnimationAccess;
-import com.zigythebird.playeranimcore.animation.AnimationController;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
-import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
-import static com.zigythebird.playeranim.PlayerAnimLibMod.ANIMATION_LAYER_ID;
-
 public class Slide {
 
-    private static Vec3d cachedLookDirection = Vec3d.ZERO;
-    private static boolean isSliding = false;
-    private static boolean wasSliding = false;
+    public static boolean isSliding = false;
+    static int i = 1000;
+    static double s;
 
     public static void registerSlide() {
-        // Client-side slide movement
+
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            if (client.player == null) {
-                isSliding = false;
-                if (wasSliding) {
-                    wasSliding = false;
-                }
-                return;
-            }
+            System.out.println(i);
 
-            if (client.player.isOnGround()
-                    && client.player.isSprinting()
-                    && !client.player.isSwimming()
-                    && !client.player.isSneaking()
-                    && !client.player.isClimbing()
-                    && !client.player.isRiding()
-                    && !client.player.isInFluid()
-                    && !client.player.isSleeping()) {
+      if (MovementKeybindings.SLIDE.isPressed()) {
+          isSliding = true;
+        } else {
+          isSliding = false;
+        }
 
-                Vec3d look = client.player.getRotationVec(1);
-                client.player.addVelocity(
-                        look.x * 0.08,
-                        0,
-                        look.z * 0.08
-                );
-                cachedLookDirection = look;
-                isSliding = true;
+      if (isSliding && i <= 1000 && i > 0) {
+          i-= 10;
+      } else if (i >= 350 && i < 1000 && !isSliding) {
+          i += 10;
+      } else if (i >= 0&& i < 350 && !isSliding) {
+          i += 5;
+      } else if (i < 0 && !isSliding) {
+          i ++;
+      }
 
-                // Start animation when slide begins
-                if (!wasSliding && client.player != null) {
-                    PlayerAnimationController controller = (PlayerAnimationController) PlayerAnimationAccess.getPlayerAnimationLayer(
-                            client.player, ANIMATION_LAYER_ID);
-                    controller.triggerAnimation(Identifier.of("movementum", "sliding"));
-                    wasSliding = true;
-                }
-            }
-        });
+      if (i >= 750 && i <= 1000) {
+          s = 0.3;
+      }
+      if (i >= 500 && i < 750) {
+          s = 0.25;
+      }
+      if (i >= 250 && i < 500) {
+          s = 0.2 ;
+      }
+      if (i >= 0 && i < 250) {
+          s = 0.15;
+      }
 
-        // Server-side entity pushing
-        ServerTickEvents.END_SERVER_TICK.register(server -> {
-            if (!isSliding) return;
 
-            Vec3d vel = cachedLookDirection;
-            List<ServerPlayerEntity> players = server.getPlayerManager().getPlayerList();
-            for (ServerPlayerEntity player : players) {
-                Box box = player.getBoundingBox().expand(0.5, 0, 0.5);
-                List<Entity> entities = player.getEntityWorld().getOtherEntities(player, box, e -> true);
-                for (Entity entity : entities) {
-                    if (entity.isPushable() && !entity.equals(player)) {
-                        entity.setVelocity(
-                                vel.x * 1.5,
-                                0.5,
-                                vel.z * 1.5
-                        );
-                    }
-                }
-            }
+          if (client.player != null && isSliding) {
+              if (client.player.isOnGround()
+                      && client.player.isSprinting()
+                      && !client.player.isSwimming()
+                      && !client.player.isSneaking()
+                      && !client.player.isClimbing()
+                      && !client.player.isRiding()
+                      && !client.player.isInFluid()
+                      && !client.player.isSleeping()) {
+                  Vec3d look = client.player.getRotationVec(1);
+                  client.player.addVelocity(
+                          look.x * s,
+                          0,
+                      look.z * s
+                  );
+              }
+          }
         });
     }
 }

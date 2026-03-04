@@ -8,5 +8,6 @@ public class MovementumClient implements ClientModInitializer {
     public void onInitializeClient() {
         MovementKeybindings.register();
         File.movementum.animations.controller.registerController();
+
     }
 }
