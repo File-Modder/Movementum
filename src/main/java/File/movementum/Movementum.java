@@ -8,7 +8,7 @@ public class Movementum implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        Slide.registerSlide();
+
 
     }
 }

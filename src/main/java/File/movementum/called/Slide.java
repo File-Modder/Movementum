@@ -1,15 +1,14 @@
 package File.movementum.called;
 
 import File.movementum.client.MovementKeybindings;
+import com.zigythebird.playeranim.animation.PlayerAnimationController;
+import com.zigythebird.playeranim.api.PlayerAnimationAccess;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
-import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
-import net.minecraft.entity.Entity;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
-import org.slf4j.LoggerFactory;
 
-import java.util.List;
+
+import static File.movementum.animations.AnimationDefiner.SLIDING;
+import static com.zigythebird.playeranim.PlayerAnimLibMod.ANIMATION_LAYER_ID;
 
 public class Slide {
 
@@ -17,20 +16,30 @@ public class Slide {
     static int i = 1000;
     static double s;
 
+
     public static void registerSlide() {
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
+            if (isSliding) {
             System.out.println(i);
+            }
+            isSliding = MovementKeybindings.SLIDE.isPressed();
 
-      if (MovementKeybindings.SLIDE.isPressed()) {
-          isSliding = true;
-        } else {
-          isSliding = false;
-        }
+      if (client.player != null) {
+          PlayerAnimationController controller = (PlayerAnimationController) PlayerAnimationAccess.getPlayerAnimationLayer(client.player, ANIMATION_LAYER_ID);
+
+          if (controller != null) {
+              // Trigger animation when we start sliding
+              if (isSliding) {
+                  controller.triggerAnimation(SLIDING);
+              }
+
+          }
+      }
 
       if (isSliding && i <= 1000 && i > 0) {
           i-= 10;
-      } else if (i >= 350 && i < 1000 && !isSliding) {
+      } else if (i >= 350 && i < 1000) {
           i += 10;
       } else if (i >= 0&& i < 350 && !isSliding) {
           i += 5;
@@ -39,19 +48,19 @@ public class Slide {
       }
 
       if (i >= 750 && i <= 1000) {
-          s = 0.15;
-      }
-      if (i >= 500 && i < 750) {
           s = 0.125;
       }
+      if (i >= 500 && i < 750) {
+          s = 0.1;
+      }
       if (i >= 250 && i < 500) {
-          s = 0.10 ;
+          s = 0.075 ;
       }
       if (i >= 0 && i < 250) {
-          s = 0.075;
+          s = 0.05;
       }
       if (i <= 0) {
-          s = 0.025;
+          s = -0.05;
       }
 
 
