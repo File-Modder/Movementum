@@ -9,6 +9,7 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.minecraft.util.math.Vec3d;
 
 
+import static File.movementum.animations.AnimationDefiner.NULL;
 import static File.movementum.animations.AnimationDefiner.SLIDING;
 import static com.zigythebird.playeranim.PlayerAnimLibMod.ANIMATION_LAYER_ID;
 
@@ -54,76 +55,74 @@ public class Slide {
                 isStanding = false;
             }
 
-
-            System.out.println(i);
-            if (isSliding) {
-
+            if (client.player != null) {
+                System.out.println(i);
                 PlayerAnimationController controller = (PlayerAnimationController) PlayerAnimationAccess.getPlayerAnimationLayer(client.player, ANIMATION_LAYER_ID);
-                assert controller != null;
+                if (controller != null) {
+                    if (isSliding) {
+                        controller.replaceAnimationWithFade(AbstractFadeModifier.standardFadeIn(3, EasingType.EASE_IN_BACK), SLIDING);
+                    } else {
+                        controller.stopTriggeredAnimation();
+                    }
+                }
+
+                if (isSliding && i <= 2000 && i > 0) {
+                    i -= 10;
+                }
+                if (!isSliding && i < 2000) {
+                    i += 10;
+                }
+                if (!isSliding && isStanding && i < 2000) {
+                    i += 25;
+                }
+                if (!isSliding && i <= 1000) {
+                    i += 5;
+                }
+                if (!isSliding && isStanding && i <= 1000) {
+                    i += 20;
+                }
+                if (i > 2000) {
+                    i = 2000;
+                }
+
+                if (i >= 1750 && i <= 2000) {
+                    s = 0.075;
+                }
+                if (i >= 1500 && i < 1750) {
+                    s = 0.065;
+                }
+                if (i >= 1250 && i < 1500) {
+                    s = 0.055;
+                }
+                if (i >= 1000 && i < 1250) {
+                    s = 0.045;
+                }
+                if (i >= 750 && i < 1000) {
+                    s = 0.035;
+                }
+                if (i >= 500 && i < 750) {
+                    s = 0.00;
+                }
+                if (i >= 250 && i < 500) {
+                    s = -0.025;
+                }
+                if (i > 0 && i < 250) {
+                    s = -0.05;
+                }
+
+                if (i <= 0) {
+                    client.player.setVelocity(0, 0, 0);
+                }
+
                 if (isSliding) {
-                    controller.triggerAnimation(SLIDING);
-                } if (!isSliding){
-                    controller.stopTriggeredAnimation();
+                    Vec3d look = client.player.getRotationVec(1);
+                    client.player.addVelocity(
+                            look.x * s,
+                            0,
+                            look.z * s
+                    );
                 }
             }
-                    if (isSliding && i <= 2000 && i > 0) {
-                        i -= 10;
-                    }
-                    if (!isSliding && i < 2000) {
-                        i += 10;
-                    }
-                    if (!isSliding && isStanding && i < 2000) {
-                        i += 25;
-                    }
-                    if (!isSliding && i <= 1000) {
-                        i += 5;
-                    }
-                    if (!isSliding && isStanding && i <= 1000 ) {
-                         i += 20;
-                    }
-                    if (i > 2000) {
-                        i = 2000;
-                    }
-
-
-
-                    if (i >= 1750 && i <= 2000) {
-                        s = 0.075;
-                    }
-                    if (i >= 1500 && i < 1750) {
-                        s = 0.065;
-                    }
-                    if (i >= 1250 && i < 1500) {
-                        s = 0.055;
-                    }
-                    if (i >= 1000 && i < 1250) {
-                        s = 0.045;
-                    }
-                    if (i >= 750 && i < 1000) {
-                        s = 0.035;
-                    }
-                    if (i >= 500 && i < 750) {
-                        s = 0.00;
-                    }
-                    if (i >= 250 && i < 500) {
-                        s = -0.025;
-                    }
-                    if (i > 0 && i < 250) {
-                        s = -0.05;
-                    }
-                    if (i <= 0) {
-                        client.player.setVelocity(0, 0, 0);
-                    }
-
-
-                    if (client.player != null && isSliding) {
-                            Vec3d look = client.player.getRotationVec(1);
-                            client.player.addVelocity(
-                                    look.x * s,
-                                    0,
-                                    look.z * s
-                );
-            }
-      });
+        });
     }
 }

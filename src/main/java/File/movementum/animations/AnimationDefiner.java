@@ -6,5 +6,4 @@ public class AnimationDefiner {
 
     public static final Identifier SLIDING =
             Identifier.of("movementum", "sliding");
-
 }
