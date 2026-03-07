@@ -8,6 +8,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import static File.movementum.called.Slide.isSliding;
+
 @Mixin(GameRenderer.class)
 public class GameRendererMixin {
 
@@ -15,7 +17,7 @@ public class GameRendererMixin {
     private void disableBob(MatrixStack matrices, float tickProgress, CallbackInfo ci) {
 
         // Disable bobbing while sliding
-        if (MovementKeybindings.SLIDE.isPressed()) {
+        if (isSliding) {
             ci.cancel();
         }
     }

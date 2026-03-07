@@ -12,6 +12,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import static File.movementum.called.Slide.isSliding;
+
 @Environment(EnvType.CLIENT)
 @Mixin(Entity.class)
 public abstract class EntityMixin {
@@ -26,7 +28,7 @@ public abstract class EntityMixin {
 
         if (client.player != null
                 && entity == client.player
-                && MovementKeybindings.SLIDE.isPressed()
+                && isSliding
                 && entity.isOnGround()) {
 
             Box originalBox = boundingBox;

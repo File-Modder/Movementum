@@ -124,4 +124,12 @@ public class Slide {
             }
         });
     }
+
+    public static boolean isIsSliding() {
+        return isSliding;
+    }
+
+    public static boolean isIsStanding() {
+        return isStanding;
+    }
 }
