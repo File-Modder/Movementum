@@ -1,119 +1,54 @@
 {
-  "name": "sliding",
-  "author": "Movementum",
-  "description": "Sliding animation",
-  "loop": true,
-  "returnToTick": 0,
-  "degrees": true,
-  "keyframes": [
-    {
-      "tick": 0,
-      "comment": "Start pose",
-      "data": {
-        "head": {
-          "pitch": 0,
-          "yaw": 0,
-          "roll": 0,
-          "x": 0,
-          "y": 0,
-          "z": 0
-        },
-        "torso": {
-          "pitch": 70,
-          "yaw": 0,
-          "roll": 0,
-          "x": 0,
-          "y": -4,
-          "z": 0
-        },
-        "leftArm": {
-          "pitch": -90,
-          "yaw": 0,
-          "roll": -20,
-          "x": 0,
-          "y": 0,
-          "z": 0
-        },
-        "rightArm": {
-          "pitch": -90,
-          "yaw": 0,
-          "roll": 20,
-          "x": 0,
-          "y": 0,
-          "z": 0
-        },
-        "leftLeg": {
-          "pitch": 110,
-          "yaw": 0,
-          "roll": 0,
-          "x": 0,
-          "y": 0,
-          "z": 0
-        },
-        "rightLeg": {
-          "pitch": 110,
-          "yaw": 0,
-          "roll": 0,
-          "x": 0,
-          "y": 0,
-          "z": 0
-        }
-      }
-    },
-    {
-      "tick": 10,
-      "comment": "Mid pose",
-      "data": {
-        "head": {
-          "pitch": 10,
-          "yaw": 0,
-          "roll": 0,
-          "x": 0,
-          "y": 0,
-          "z": 0
-        },
-        "torso": {
-          "pitch": 75,
-          "yaw": 0,
-          "roll": 0,
-          "x": 0,
-          "y": -4,
-          "z": 0
-        },
-        "leftArm": {
-          "pitch": -95,
-          "yaw": 0,
-          "roll": -20,
-          "x": 0,
-          "y": 0,
-          "z": 0
-        },
-        "rightArm": {
-          "pitch": -95,
-          "yaw": 0,
-          "roll": 20,
-          "x": 0,
-          "y": 0,
-          "z": 0
-        },
-        "leftLeg": {
-          "pitch": 105,
-          "yaw": 0,
-          "roll": 0,
-          "x": 0,
-          "y": 0,
-          "z": 0
-        },
-        "rightLeg": {
-          "pitch": 105,
-          "yaw": 0,
-          "roll": 0,
-          "x": 0,
-          "y": 0,
-          "z": 0
-        }
-      }
-    }
-  ]
+	"format_version": "1.8.0",
+	"animations": {
+		"sliding": {
+			"tick": 0,
+			"loop": true,
+			"bones": {
+				"body": {
+					"rotation": {
+						"vector": [-62.5, 0, 0]
+					},
+					"position": {
+						"vector": [0, -9.15301, 3.54804]
+					}
+				},
+				"head": {
+					"rotation": {
+						"vector": [27.5, 0, 0]
+					}
+				},
+				"right_arm": {
+					"rotation": {
+						"vector": [123.7424, -14.6914, -9.61518]
+					}
+				},
+				"left_arm": {
+					"rotation": {
+						"vector": [-0.85615, 18.97451, 76.01289]
+					},
+					"position": {
+						"vector": [-3.73813, -3.33389, -4.78973]
+					}
+				},
+				"right_leg": {
+					"rotation": {
+						"vector": [-7.5, 0, 0]
+					},
+					"position": {
+						"vector": [0, -0.25696, -3.22381]
+					}
+				},
+				"left_leg": {
+					"rotation": {
+						"vector": [-24.91643, -2.11089, -4.53359]
+					},
+					"position": {
+						"vector": [0.99619, -0.82732, -0.38578]
+					}
+				}
+			}
+		}
+	},
+	"geckolib_format_version": 2
 }
-

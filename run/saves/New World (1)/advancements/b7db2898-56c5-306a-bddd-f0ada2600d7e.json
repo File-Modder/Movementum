@@ -59,15 +59,33 @@
     },
     "done": true
   },
+  "minecraft:recipes/decorations/white_bed": {
+    "criteria": {
+      "has_white_wool": "2026-02-28 22:16:14 -0600"
+    },
+    "done": true
+  },
   "minecraft:adventure/adventuring_time": {
     "criteria": {
       "minecraft:plains": "2026-02-28 22:16:15 -0600"
     },
     "done": false
   },
-  "minecraft:recipes/decorations/white_bed": {
+  "minecraft:recipes/transportation/activator_rail": {
     "criteria": {
-      "has_white_wool": "2026-02-28 22:16:14 -0600"
+      "has_rail": "2026-03-06 18:22:48 -0600"
+    },
+    "done": true
+  },
+  "minecraft:recipes/transportation/detector_rail": {
+    "criteria": {
+      "has_rail": "2026-03-06 18:22:48 -0600"
+    },
+    "done": true
+  },
+  "minecraft:recipes/transportation/powered_rail": {
+    "criteria": {
+      "has_rail": "2026-03-06 18:22:48 -0600"
     },
     "done": true
   },

@@ -12,8 +12,7 @@ public class controller {
         PlayerAnimationFactory.ANIMATION_DATA_FACTORY.registerFactory(ANIMATION_LAYER_ID, 1600,
                 player -> new PlayerAnimationController(player,
                         (controller, state, animSetter) -> {
-                            // Return CONTINUE to allow animations to play
-                            return PlayState.CONTINUE;
+                        return PlayState.CONTINUE;
                         }
                 )
         );

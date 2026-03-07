@@ -21,3 +21,5 @@
 /
 /kill @e
 /time set day
+/effect give Player157 minecraft:speed 1
+/effect give Player157 minecraft:speed 10
