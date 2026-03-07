@@ -56,7 +56,7 @@ public class Slide {
 
 
             System.out.println(i);
-
+a
             if (isSliding) {
 
                 PlayerAnimationController controller = (PlayerAnimationController) PlayerAnimationAccess.getPlayerAnimationLayer(client.player, ANIMATION_LAYER_ID);
