@@ -9,7 +9,6 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.minecraft.util.math.Vec3d;
 
 
-import static File.movementum.animations.AnimationDefiner.NULL;
 import static File.movementum.animations.AnimationDefiner.SLIDING;
 import static com.zigythebird.playeranim.PlayerAnimLibMod.ANIMATION_LAYER_ID;
 
