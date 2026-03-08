@@ -38,7 +38,6 @@ public class Slide {
                 UUID ID = client.player.getUuid();
                 stamina.putIfAbsent(ID, 2000);
 
-                // Treat negative vertical velocity as descending, so slide can continue downhill/in drop-offs.
                 boolean isDescending = client.player.getVelocity().y < -0.08;
 
                 if (        MovementKeybindings.SLIDE.isPressed()
@@ -49,7 +48,8 @@ public class Slide {
                         && !client.player.isClimbing()
                         && !client.player.isRiding()
                         && !client.player.isInFluid()
-                        && !client.player.isSleeping()) {
+                        && !client.player.isSleeping()
+                        && !client.player.isJumping()) {
                     isSliding = true;
                 } else {
                     isSliding = false;
@@ -64,6 +64,7 @@ public class Slide {
                         && !client.player.isClimbing()
                         && !client.player.isRiding()
                         && !client.player.isInFluid()
+                        && !client.player.isJumping()
                  ) {
                          isStanding = true;
                      } else {
@@ -95,26 +96,28 @@ public class Slide {
                 } else if (i < 0 && !isSliding) {
                     i = 0;
                 }
-                client.player.sendMessage(Text.literal(i + " stamina"), true);
-
-                if (i >= 1750 && i <= 2000) {
-                    speed.put(ID, 75);
-                } else if (i >= 1500 && i < 1750) {
-                    speed.put(ID, 65);
-                } else if (i >= 1250 && i < 1500) {
-                    speed.put(ID, 55);
-                } else if (i >= 1000 && i < 1250) {
-                    speed.put(ID, 45);
-                } else if (i >= 750 && i < 1000) {
-                    speed.put(ID, 35);
-                } else if (i >= 500 && i < 750) {
-                    speed.put(ID, 0);
-                } else if (i >= 250 && i < 500) {
-                    client.player.getVelocity().subtract(0.5, 0, 0.5);
-                } else if (i > 0 && i < 250) {
-                    client.player.getVelocity().subtract(0.25, 0, 0.25);
-                } else if (i <= 0) {
-                    client.player.getVelocity().subtract(1, 0, 1);
+                if (isSliding) {
+                    client.player.sendMessage(Text.literal(i + " stamina"), true);
+                    Vec3d vel = client.player.getVelocity();
+                    if (i >= 1750) {
+                        speed.put(ID, 75);
+                    } else if (i >= 1500) {
+                        speed.put(ID, 65);
+                    } else if (i >= 1250) {
+                        speed.put(ID, 55);
+                    } else if (i >= 1000) {
+                        speed.put(ID, 45);
+                    } else if (i >= 750) {
+                        speed.put(ID, 35);
+                    } else if (i >= 500) {
+                        speed.put(ID, 0);
+                    } else if (i >= 250) {
+                        client.player.setVelocity(client.player.getVelocity().x / 1.25, client.player.getVelocity().y, client.player.getVelocity().z / 2);
+                    } else if (i > 0) {
+                        client.player.setVelocity(client.player.getVelocity().x / 1.5, client.player.getVelocity().y, client.player.getVelocity().z / 2);
+                    } else {
+                        client.player.setVelocity(client.player.getVelocity().x / 2, client.player.getVelocity().y, client.player.getVelocity().z / 2);
+                    }
                 }
 
                 stamina.put(ID, i);
