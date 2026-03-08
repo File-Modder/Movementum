@@ -5,57 +5,72 @@ import com.zigythebird.playeranim.animation.PlayerAnimationController;
 import com.zigythebird.playeranim.api.PlayerAnimationAccess;
 import com.zigythebird.playeranimcore.animation.layered.modifier.AbstractFadeModifier;
 import com.zigythebird.playeranimcore.easing.EasingType;
+import it.unimi.dsi.fastutil.floats.Float2FloatFunction;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.minecraft.text.Text;
 import net.minecraft.util.math.Vec3d;
 
+
+import java.util.*;
 
 import static File.movementum.animations.AnimationDefiner.SLIDING;
 import static com.zigythebird.playeranim.PlayerAnimLibMod.ANIMATION_LAYER_ID;
 
 public class Slide {
 
+
+    private static final Map<UUID, Integer> stamina = new HashMap<>();
+    private static final Map<UUID, Integer> speed   = new HashMap<>();
+
     public static boolean isSliding = false;
     public static boolean isStanding = false;
-    static int i = 2000;
-    static double s;
+
 
 
     public static void registerSlide() {
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
 
-            if (client.player != null
-                    && MovementKeybindings.SLIDE.isPressed()
-                    && client.player.isOnGround()
-                    && client.player.isSprinting()
-                    && !client.player.isSwimming()
-                    && !client.player.isSneaking()
-                    && !client.player.isClimbing()
-                    && !client.player.isRiding()
-                    && !client.player.isInFluid()
-                    && !client.player.isSleeping()) {
-                isSliding = true;
-            } else {
-                isSliding = false;
-            }
 
-            if (client.player != null
-                    && client.player.isOnGround()
-                    && !isSliding
-                    && !client.player.isSprinting()
-                    && !client.player.isMovingHorizontally()
-                    && !client.player.isSwimming()
-                    && !client.player.isSneaking()
-                    && !client.player.isClimbing()
-                    && !client.player.isRiding()
-                    && !client.player.isInFluid()) {
-                isStanding = true;
-            } else {
-                isStanding = false;
-            }
+
 
             if (client.player != null) {
-                System.out.println(i);
+                UUID ID = client.player.getUuid();
+                stamina.putIfAbsent(ID, 2000);
+
+                // Treat negative vertical velocity as descending, so slide can continue downhill/in drop-offs.
+                boolean isDescending = client.player.getVelocity().y < -0.08;
+
+                if (        MovementKeybindings.SLIDE.isPressed()
+                        && (client.player.isOnGround() || isDescending)
+                        &&  client.player.isSprinting()
+                        && !client.player.isSwimming()
+                        && !client.player.isSneaking()
+                        && !client.player.isClimbing()
+                        && !client.player.isRiding()
+                        && !client.player.isInFluid()
+                        && !client.player.isSleeping()) {
+                    isSliding = true;
+                } else {
+                    isSliding = false;
+                }
+
+                 if (       client.player.isOnGround()
+                        && !isSliding
+                        && !client.player.isSprinting()
+                        && !client.player.isMovingHorizontally()
+                        && !client.player.isSwimming()
+                        && !client.player.isSneaking()
+                        && !client.player.isClimbing()
+                        && !client.player.isRiding()
+                        && !client.player.isInFluid()
+                 ) {
+                         isStanding = true;
+                     } else {
+                         isStanding = false;
+                     }
+
+            if (client.player != null) {
                 PlayerAnimationController controller = (PlayerAnimationController) PlayerAnimationAccess.getPlayerAnimationLayer(client.player, ANIMATION_LAYER_ID);
                 if (controller != null) {
                     if (isSliding) {
@@ -65,71 +80,63 @@ public class Slide {
                     }
                 }
 
-                if (isSliding && i <= 2000 && i > 0) {
+                int i = stamina.get(ID);
+
+                if(isSliding && !isStanding && i > 0) {
                     i -= 10;
                 }
-                if (!isSliding && i < 2000) {
-                    i += 10;
-                }
-                if (!isSliding && isStanding && i < 2000) {
-                    i += 25;
-                }
-                if (!isSliding && i <= 1000) {
-                    i += 5;
-                }
-                if (!isSliding && isStanding && i <= 1000) {
-                    i += 20;
-                }
-                if (i > 2000) {
+
+                if (i > 2000){
                     i = 2000;
+                } else if (!isSliding && isStanding && i < 2000 && i >= 0) {
+                    i += 25;
+                } else if (!isSliding && i < 2000 && i >= 0) {
+                    i += 12;
+                } else if (i < 0 && !isSliding) {
+                    i = 0;
                 }
+                client.player.sendMessage(Text.literal(i + " stamina"), true);
 
                 if (i >= 1750 && i <= 2000) {
-                    s = 0.075;
-                }
-                if (i >= 1500 && i < 1750) {
-                    s = 0.065;
-                }
-                if (i >= 1250 && i < 1500) {
-                    s = 0.055;
-                }
-                if (i >= 1000 && i < 1250) {
-                    s = 0.045;
-                }
-                if (i >= 750 && i < 1000) {
-                    s = 0.035;
-                }
-                if (i >= 500 && i < 750) {
-                    s = 0.00;
-                }
-                if (i >= 250 && i < 500) {
-                    s = -0.025;
-                }
-                if (i > 0 && i < 250) {
-                    s = -0.05;
+                    speed.put(ID, 75);
+                } else if (i >= 1500 && i < 1750) {
+                    speed.put(ID, 65);
+                } else if (i >= 1250 && i < 1500) {
+                    speed.put(ID, 55);
+                } else if (i >= 1000 && i < 1250) {
+                    speed.put(ID, 45);
+                } else if (i >= 750 && i < 1000) {
+                    speed.put(ID, 35);
+                } else if (i >= 500 && i < 750) {
+                    speed.put(ID, 0);
+                } else if (i >= 250 && i < 500) {
+                    client.player.getVelocity().subtract(0.5, 0, 0.5);
+                } else if (i > 0 && i < 250) {
+                    client.player.getVelocity().subtract(0.25, 0, 0.25);
+                } else if (i <= 0) {
+                    client.player.getVelocity().subtract(1, 0, 1);
                 }
 
-                if (i <= 0) {
-                    client.player.setVelocity(0, 0, 0);
-                }
+                stamina.put(ID, i);
 
                 if (isSliding) {
                     Vec3d look = client.player.getRotationVec(1);
                     client.player.addVelocity(
-                            look.x * s,
+                            look.x * speed.get(ID) / 1000,
                             0,
-                            look.z * s
-                    );
+                            look.z * speed.get(ID) / 1000
+                        );
+                    }
                 }
             }
         });
     }
 
-    public static boolean isIsSliding() {
+    public static boolean getSliding() {
         return isSliding;
     }
 
-    public static boolean isIsStanding() {
+    public static boolean getStanding() {
         return isStanding;
     }
 }

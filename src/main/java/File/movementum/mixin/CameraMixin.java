@@ -17,6 +17,7 @@ public abstract class CameraMixin {
     @Shadow
     public abstract boolean isThirdPerson();
 
+
     @Unique private double smoothX = Double.NaN;
     @Unique private double smoothY = Double.NaN;
     @Unique private double smoothZ = Double.NaN;
@@ -32,7 +33,7 @@ public abstract class CameraMixin {
             return;
         }
 
-        if (isThirdPerson()) {
+        if (isThirdPerson() || client.player.isRiding()) {
             smoothX = Double.NaN;
             smoothY = Double.NaN;
             smoothZ = Double.NaN;
