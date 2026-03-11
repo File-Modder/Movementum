@@ -7,11 +7,13 @@
   "authors": [],
   "contact": {},
   "license": "All-Rights-Reserved",
-  "icon": "assets/movementum/icon.png",
   "environment": "*",
   "entrypoints": {
     "client": [
       "File.movementum.client.MovementumClient"
+    ],
+    "fabric-datagen": [
+      "File.movementum.client.MovementumDataGenerator"
     ],
     "main": [
       "File.movementum.Movementum"
@@ -20,7 +22,6 @@
   "mixins": [
     "movementum.mixins.json"
   ],
-  "accessWidener": "movementum.classTweaker",
   "depends": {
     "fabricloader": ">=${loader_version}",
     "fabric-api": "*",

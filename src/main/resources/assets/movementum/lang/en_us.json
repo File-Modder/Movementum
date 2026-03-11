@@ -1,3 +1,5 @@
 {
-  "key.movementum.slide": "Slide"
+  "key.movementum.slide": "Slide",
+  "key.movementum.air_stride": "Air Stride",
+  "enchantment.movementum.air_stride": "Air Strider"
 }

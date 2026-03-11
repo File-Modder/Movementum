@@ -1,0 +1,27 @@
+{
+  "description": "air_strider",
+  "supported_items": [],
+  "primary_items": "#minecraft:enchantable/foot_armor",
+  "weight": 5,
+  "max_level": 1,
+  "min_cost": {
+    "base": 25,
+    "per_level_above_first": 1
+  },
+  "max_cost": {
+    "base": 25,
+    "per_level_above_first": 25
+  },
+  "anvil_cost": 10,
+  "slots": [
+    "feet"
+  ],
+  "effects": {
+    "minecraft:tick": [
+      {
+        "effect": "movementum:air_stride",
+        "level_multiplier": 1
+      }
+    ]
+  }
+}
