@@ -19,3 +19,5 @@ movementum id a minecrsft mod that aims to add extra movement options into minec
 | - Oofie (Animator)
 \
 | - Ransom (Animator)
+\
+| - Jackson/Ender (Artist)
