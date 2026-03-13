@@ -1,6 +1,8 @@
 {
-  "description": "air_strider",
-  "supported_items": [],
+  "description": {
+    "translate": "enchantment.movementum.air_stride"
+  },
+  "supported_items": "#minecraft:enchantable/foot_armor",
   "primary_items": "#minecraft:enchantable/foot_armor",
   "weight": 5,
   "max_level": 1,
@@ -15,13 +17,5 @@
   "anvil_cost": 10,
   "slots": [
     "feet"
-  ],
-  "effects": {
-    "minecraft:tick": [
-      {
-        "effect": "movementum:air_stride",
-        "level_multiplier": 1
-      }
-    ]
-  }
+  ]
 }

@@ -46,7 +46,7 @@ processResources {
     inputs.property "loader_version", project.loader_version
     filteringCharset "UTF-8"
 
-    duplicatesStrategy = 'include'
+    duplicatesStrategy = org.gradle.api.file.DuplicatesStrategy.EXCLUDE
 
     filesMatching("fabric.mod.json") {
         expand "version": project.version,

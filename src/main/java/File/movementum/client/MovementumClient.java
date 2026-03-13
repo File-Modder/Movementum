@@ -1,7 +1,9 @@
 package File.movementum.client;
 
-import File.movementum.called.Slide;
 import net.fabricmc.api.ClientModInitializer;
+
+import static File.movementum.called.AirStride.registerStride;
+import static File.movementum.called.Slide.registerSlide;
 
 public class MovementumClient implements ClientModInitializer {
 
@@ -9,6 +11,7 @@ public class MovementumClient implements ClientModInitializer {
     public void onInitializeClient() {
         MovementKeybindings.register();
         File.movementum.animations.controller.registerController();
-        Slide.registerSlide();
+        registerSlide();
+        registerStride();
     }
 }
