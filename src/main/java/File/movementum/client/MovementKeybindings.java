@@ -20,7 +20,7 @@ public class MovementKeybindings {
         AIR = KeyBindingHelper.registerKeyBinding(new KeyBinding(
                 "key.movementum.air_jump",               // Translation key for the keybinding name
                 InputUtil.Type.KEYSYM,                 // Input type (keyboard)
-                GLFW.GLFW_KEY_SPACE,           // Default key (Left Control)
+                GLFW.GLFW_KEY_V,           // Default key (Left Control)
                 KeyBinding.Category.MOVEMENT                 // Translation key for the category
         ));
     }

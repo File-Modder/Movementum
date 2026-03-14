@@ -14,6 +14,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import static File.movementum.animations.AnimationDefiner.SLIDING;
+import static File.movementum.called.AirStride.jump;
 import static com.zigythebird.playeranim.PlayerAnimLibMod.ANIMATION_LAYER_ID;
 
 public class Slide {
@@ -28,6 +29,7 @@ public class Slide {
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if (client.player != null) {
                 UUID id = client.player.getUuid();
+                client.player.sendMessage(Text.literal(stamina.get(id) + " stamina, Air Stride " + jump.get(id)), true);
                 stamina.putIfAbsent(id, 2000);
 
                 boolean isDescending = client.player.getVelocity().y < -0.08;
@@ -97,7 +99,7 @@ public class Slide {
                     }
 
                     if (isSliding) {
-                        client.player.sendMessage(Text.literal(i + " stamina"), true);
+
                         Vec3d vel = client.player.getVelocity();
 
                         if (i >= 1750) {
