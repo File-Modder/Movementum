@@ -3,6 +3,7 @@ package File.movementum.called;
 import File.movementum.client.MovementKeybindings;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.util.math.Vec3d;
 
 import java.util.HashMap;
@@ -16,7 +17,8 @@ public class AirStride {
 
     public static void registerStride() {
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            if (client.player == null) return;
+                if (client.player == null) return;
+            if (client.world == null) return;
 
             String EnchantString = client.player.getEquippedStack(EquipmentSlot.FEET).getEnchantments().toString();
             UUID id = client.player.getUuid();
@@ -25,23 +27,29 @@ public class AirStride {
 
 
 
-            if (client.player.isOnGround() && jump.get(id) < 30) {
+            if (client.player.isOnGround() && jump.getOrDefault(id, 0) < 30) {
                 latch.put(id, true);
-            } if (Boolean.TRUE.equals(latch.get(id)) && jump.get(id) >= 30) {
+            } if (Boolean.TRUE.equals(latch.getOrDefault(id, false)) && jump.getOrDefault(id, 0) >= 30) {
                 latch.put(id, false);
-            } if (EnchantString.contains("Air Strider") && Boolean.TRUE.equals(latch.get(id))) {
-                jump.put(id, jump.get(id) + 1);
+            } if (EnchantString.contains("movementum:air_stride") && Boolean.TRUE.equals(latch.getOrDefault(id, false))) {
+                jump.put(id, jump.getOrDefault(id, 0) + 1);
+            } if (!EnchantString.contains("movementum:air_stride")) {
+                jump.put(id, 0);
             }
 
-
-            if (EnchantString.contains("Air Strider")
+            if (EnchantString.contains("movementum:air_stride")
                     && !client.player.isOnGround()
                     && MovementKeybindings.AIR != null
                     && MovementKeybindings.AIR.wasPressed()
-                    && jump.get(id) == 30) {
+                    && jump.getOrDefault(id, 0) == 30) {
+                   
                 Vec3d look = client.player.getRotationVec(1);
                 jump.put(id, 0);
                 client.player.addVelocity(look.x * 0.75, 0.42, look.z * 0.75);
+
+                for (int i = 0; i < 13; i++) {
+                    client.world.addImportantParticleClient(ParticleTypes.CLOUD, true, client.player.getX(), client.player.getY(), client.player.getZ(), (Math.random()) * -0.25, (Math.random() * -0.07), (Math.random() * -0.25));
+                }
             }
         });
     }

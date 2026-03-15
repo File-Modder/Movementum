@@ -23,11 +23,38 @@ repositories {
         url = "https://repo.redlance.org/public"
     }
 }
+
+loom {
+    runs {
+        client {
+            vmArg "-Dfabric.log.disableAnsi=true"
+            vmArg "-Dlog4j.skipJansi=true"
+            vmArg "-Dterminal.ansi=false"
+            vmArg "-Dterminal.jline=false"
+        }
+        server {
+            vmArg "-Dfabric.log.disableAnsi=true"
+            vmArg "-Dlog4j.skipJansi=true"
+            vmArg "-Dterminal.ansi=false"
+            vmArg "-Dterminal.jline=false"
+        }
+    }
+}
+
 fabricApi {
     configureDataGeneration() {
         client = true
     }
 }
+
+sourceSets {
+    main {
+        resources {
+            srcDir 'src/main/generated'
+        }
+    }
+}
+
 dependencies {
     // To change the versions see the gradle.properties file
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
@@ -52,6 +79,12 @@ processResources {
         expand "version": project.version,
                 "minecraft_version": project.minecraft_version,
                 "loader_version": project.loader_version
+    }
+}
+
+tasks.withType(Jar).configureEach {
+    if (name == "sourcesJar") {
+        duplicatesStrategy = org.gradle.api.file.DuplicatesStrategy.EXCLUDE
     }
 }
 
