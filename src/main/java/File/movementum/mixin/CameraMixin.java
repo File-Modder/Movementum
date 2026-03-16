@@ -1,6 +1,6 @@
 package File.movementum.mixin;
 
-import File.movementum.called.Slide;
+import File.movementum.common.Slide;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.Camera;
 import net.minecraft.util.math.Vec3d;

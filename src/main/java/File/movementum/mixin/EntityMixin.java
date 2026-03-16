@@ -1,6 +1,5 @@
 package File.movementum.mixin;
 
-import File.movementum.client.MovementKeybindings;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
@@ -12,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import static File.movementum.called.Slide.isSliding;
+import static File.movementum.common.Slide.isSliding;
 
 @Environment(EnvType.CLIENT)
 @Mixin(Entity.class)

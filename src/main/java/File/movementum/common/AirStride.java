@@ -1,7 +1,9 @@
-package File.movementum.called;
+package File.movementum.common;
 
 import File.movementum.client.MovementKeybindings;
+import File.movementum.networking.C2S.AirStrideC2SPacket;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.util.math.Vec3d;
@@ -45,7 +47,12 @@ public class AirStride {
                    
                 Vec3d look = client.player.getRotationVec(1);
                 jump.put(id, 0);
-                client.player.addVelocity(look.x * 0.75, 0.42, look.z * 0.75);
+                double dx = look.x * 0.75;
+                double dz = look.z * 0.75;
+
+                client.player.addVelocity(dx, 0.42, dz);
+
+                ClientPlayNetworking.send(new AirStrideC2SPacket(dx, dz));
 
                 for (int i = 0; i < 13; i++) {
                     client.world.addImportantParticleClient(ParticleTypes.CLOUD, true, client.player.getX(), client.player.getY(), client.player.getZ(), (Math.random()) * -0.25, (Math.random() * -0.07), (Math.random() * -0.25));

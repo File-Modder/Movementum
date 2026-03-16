@@ -1,11 +1,13 @@
-package File.movementum.called;
+package File.movementum.common;
 
 import File.movementum.client.MovementKeybindings;
+import File.movementum.networking.C2S.SlideVelocityC2SPacket;
 import com.zigythebird.playeranim.animation.PlayerAnimationController;
 import com.zigythebird.playeranim.api.PlayerAnimationAccess;
 import com.zigythebird.playeranimcore.animation.layered.modifier.AbstractFadeModifier;
 import com.zigythebird.playeranimcore.easing.EasingType;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.Vec3d;
 
@@ -14,7 +16,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import static File.movementum.animations.AnimationDefiner.SLIDING;
-import static File.movementum.called.AirStride.jump;
+import static File.movementum.common.AirStride.jump;
 import static com.zigythebird.playeranim.PlayerAnimLibMod.ANIMATION_LAYER_ID;
 
 public class Slide {
@@ -27,7 +29,8 @@ public class Slide {
 
     public static void registerSlide() {
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            if (client.player != null) {
+            if (client.player == null) return;
+            if (client.world == null) return;
                 UUID id = client.player.getUuid();
                 client.player.sendMessage(Text.literal(stamina.get(id) + " stamina, Air Stride " + jump.get(id)), true);
                 stamina.putIfAbsent(id, 2000);
@@ -137,14 +140,17 @@ public class Slide {
 
                     stamina.put(id, i);
 
-                    if (isSliding) {
-                        Vec3d look = client.player.getRotationVec(1);
-                        client.player.addVelocity(
-                                look.x * speed.get(id) / 1000,
-                                0,
-                                look.z * speed.get(id) / 1000
-                        );
-                    }
+                if (isSliding) {
+                    Vec3d look = client.player.getRotationVec(1);
+                    int s = speed.getOrDefault(id, 0);
+                    double dx = look.x * s / 1000.0;
+                    double dz = look.z * s / 1000.0;
+
+
+                    client.player.addVelocity(dx, 0, dz);
+
+
+                    ClientPlayNetworking.send(new SlideVelocityC2SPacket(dx, dz));
                 }
             }
         });
