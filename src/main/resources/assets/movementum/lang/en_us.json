@@ -1,6 +1,7 @@
 {
   "key.movementum.slide": "Slide",
-  "key.movementum.air_stride": "Air Stride",
+  "key.movementum.air_jump": "Air Stride",
   "enchantment.movementum.air_stride": "Air Strider",
-  "enchantment.movementum.curse_of_movement": "Curse Of Atrophy"
+  "enchantment.movementum.curse_of_movement": "Curse of Atrophy",
+  "enchantment.movementum.dead_mans_sprint": "Dead Man's Sprint"
 }

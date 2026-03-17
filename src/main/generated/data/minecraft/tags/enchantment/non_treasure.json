@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "movementum:air_stride"
+    "movementum:air_stride",
+    "movementum:dead_mans_sprint"
   ]
 }

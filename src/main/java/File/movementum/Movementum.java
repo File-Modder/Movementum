@@ -7,6 +7,7 @@ import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 
 import static File.movementum.common.Atrophy.registerAtrophy;
+import static File.movementum.common.DeadMansSprint.registerDeadMansSprint;
 import static File.movementum.enchantment.ModEnchantmentEffects.registerModEnchantmentEffects;
 
 
@@ -16,6 +17,7 @@ public class Movementum implements ModInitializer {
     public void onInitialize() {
         registerModEnchantmentEffects();
         registerAtrophy();
+        registerDeadMansSprint();
 
         // Tell both the client and server what SlideVelocityC2SPacket looks like on the wire
         PayloadTypeRegistry.playC2S().register(
