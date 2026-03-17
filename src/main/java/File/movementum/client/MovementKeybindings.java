@@ -12,16 +12,16 @@ public class MovementKeybindings {
 
     public static void register() {
         SLIDE = KeyBindingHelper.registerKeyBinding(new KeyBinding(
-                "key.movementum.slide",               // Translation key for the keybinding name
-                InputUtil.Type.KEYSYM,                 // Input type (keyboard)
-                GLFW.GLFW_KEY_LEFT_CONTROL,           // Default key (Left Control)
-                KeyBinding.Category.MOVEMENT                 // Translation key for the category
+                "key.movementum.slide",
+                InputUtil.Type.KEYSYM,
+                GLFW.GLFW_KEY_LEFT_CONTROL,
+                KeyBinding.Category.MOVEMENT
         ));
         AIR = KeyBindingHelper.registerKeyBinding(new KeyBinding(
-                "key.movementum.air_jump",               // Translation key for the keybinding name
-                InputUtil.Type.KEYSYM,                 // Input type (keyboard)
-                GLFW.GLFW_KEY_V,           // Default key (Left Control)
-                KeyBinding.Category.MOVEMENT                 // Translation key for the category
+                "key.movementum.air_jump",
+                InputUtil.Type.KEYSYM,
+                GLFW.GLFW_KEY_V,
+                KeyBinding.Category.MOVEMENT
         ));
     }
 }

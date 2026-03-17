@@ -19,7 +19,7 @@ public class Movementum implements ModInitializer {
         registerAtrophy();
         registerDeadMansSprint();
 
-        // Tell both the client and server what SlideVelocityC2SPacket looks like on the wire
+
         PayloadTypeRegistry.playC2S().register(
                 SlideVelocityC2SPacket.PACKET_ID,
                 SlideVelocityC2SPacket.CODEC
@@ -29,11 +29,11 @@ public class Movementum implements ModInitializer {
                 AirStrideC2SPacket.CODEC
         );
 
-        // When the server receives a slide velocity packet, apply the boost to the real player
+
         ServerPlayNetworking.registerGlobalReceiver(
                 SlideVelocityC2SPacket.PACKET_ID,
                 (payload, context) -> {
-                    // Schedule on the main server thread (required for touching player state)
+
                     context.server().execute(() -> {
                         context.player().addVelocity(payload.velX(), 0, payload.velZ());
                     });

@@ -15,7 +15,6 @@ public class GameRendererMixin {
     @Inject(method = "bobView", at = @At("HEAD"), cancellable = true)
     private void disableBob(MatrixStack matrices, float tickProgress, CallbackInfo ci) {
 
-        // Disable bobbing while sliding
         if (isSliding) {
             ci.cancel();
         }
