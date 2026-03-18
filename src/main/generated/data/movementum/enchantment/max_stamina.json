@@ -1,0 +1,21 @@
+{
+	"description": {
+		"translate": "enchantment.movementum.max_stamina"
+	},
+	"supported_items": "#minecraft:enchantable/chest_armor",
+	"primary_items": "#minecraft:enchantable/chest_armor",
+	"weight": 1,
+	"max_level": 5,
+	"min_cost": {
+		"base": 7,
+		"per_level_above_first": 5
+	},
+	"max_cost": {
+		"base": 15,
+		"per_level_above_first": 5
+	},
+	"anvil_cost": 10,
+	"slots": [
+		"chest"
+	]
+}
