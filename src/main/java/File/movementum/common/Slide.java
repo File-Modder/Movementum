@@ -25,6 +25,7 @@ public class Slide {
     private static final Map<UUID, Integer> stamina = new HashMap<>();
     private static final Map<UUID, Integer> speed = new HashMap<>();
     private static final Map<UUID, Integer> staminaMax = new HashMap<>();
+    private static final Map<UUID, Integer> regenSpeed = new HashMap<>();
 
     public static boolean isSliding = false;
     public static boolean isStanding = false;
@@ -40,6 +41,8 @@ public class Slide {
             client.getServer().getPlayerManager().getPlayerList().forEach(player -> {
                 stamina.putIfAbsent(player.getUuid(), 2000);
                 staminaMax.putIfAbsent(player.getUuid(), 2000);
+                speed.putIfAbsent(player.getUuid(), 0);
+                regenSpeed.putIfAbsent(player.getUuid(), 10);
 
 
 
@@ -104,10 +107,10 @@ public class Slide {
                         stamina.put(id, stamina.get(id) - 10);
                     }
                      else if (isSliding && !isStanding && stamina.get(id) < staminaMax.get(id) && stamina.get(id) >= 0) {
-                        stamina.put(id, stamina.get(id) + 10) ;
+                        stamina.put(id, stamina.get(id) + regenSpeed.get(id)) ;
                     }
                      else if (!isSliding && isStanding && stamina.get(id) < staminaMax.get(id) && stamina.get(id) >= 0) {
-                        stamina.put(id, stamina.get(id) + 25);
+                        stamina.put(id, stamina.get(id) + regenSpeed.get(id) += 15);
                     }
 
                      if (isSliding) {
