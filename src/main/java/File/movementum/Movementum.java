@@ -33,9 +33,11 @@ public class Movementum implements ModInitializer {
         ServerPlayNetworking.registerGlobalReceiver(
                 SlideVelocityC2SPacket.PACKET_ID,
                 (payload, context) -> {
-
+                    Vec3D vel = context.player.getVelocity
                     context.server().execute(() -> {
+                        if (!vel <= 0) {
                         context.player().addVelocity(payload.velX(), 0, payload.velZ());
+                        }
                     });
                 }
         );

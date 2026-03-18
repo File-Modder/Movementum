@@ -103,7 +103,7 @@ public class Slide {
                      if (isSliding && stamina.get(id) > 0) {
                         stamina.put(id, stamina.get(id) - 10);
                     }
-                     else if (isSliding && !isStanding && staminaMax.get(id) > 0) {
+                     else if (isSliding && !isStanding && stamina.get(id) < staminaMax.get(id) && stamina.get(id) >= 0) {
                         stamina.put(id, stamina.get(id) + 10) ;
                     }
                      else if (!isSliding && isStanding && stamina.get(id) < staminaMax.get(id) && stamina.get(id) >= 0) {
@@ -114,24 +114,33 @@ public class Slide {
                          if (stamina.get(id) > staminaMax.get(id)) {
                              stamina.put(id, staminaMax.get(id));
                          }
-                         if (stamina.get(id) >= staminaMax.get(id)*0.5) {
-                             speed.put(id, 75);
-                         }
-                         else if (stamina.get(id) >= staminaMax.get(id)*0.50) {
+                         if (stamina.get(id) >= staminaMax.get(id)*0.875) {
                              speed.put(id, 75);
                          }
                          else if (stamina.get(id) >= staminaMax.get(id)*0.75) {
-                             speed.put(id, 75);
+                             speed.put(id, 65);
                          }
-                         else if (stamina.get(id) >= staminaMax.get(id)*0.75) {
-                             speed.put(id, 75);
+                         else if (stamina.get(id) >= staminaMax.get(id)*0.625) {
+                             speed.put(id, 55);
                          }
-                         else if (stamina.get(id) >= staminaMax.get(id)*0.75) {
-                             speed.put(id, 75);
+                         else if (stamina.get(id) >= staminaMax.get(id)*0.5) {
+                             speed.put(id, 45);
+                         }
+                         else if (stamina.get(id) >= staminaMax.get(id)*0.375) {
+                             speed.put(id, 35);
                          }
 
-                         else if (stamina.get(id) >= staminaMax.get(id)*0.75) {
-                             speed.put(id, 75);
+                         else if (stamina.get(id) >= staminaMax.get(id)*0.25) {
+                             speed.put(id, 25);
+                         }
+                         else if (stamina.get(id) >= staminaMax.get(id)*0.25) {
+                             speed.put(id, 25);
+                         }
+                         else if (stamina.get(id) >= staminaMax.get(id)*0.125) {
+                             speed.put(id, -25);
+                         }
+                         else if (stamina.get(id) >= staminaMax.get(id)*0.125) {
+                             speed.put(id, -45);
                          }
 
 
@@ -140,13 +149,14 @@ public class Slide {
                      }
                 if (isSliding) {
                     Vec3d look = player.getRotationVec(1);
+                    Vec3d vel = player.getVelocity
                     int s = speed.getOrDefault(id, 0);
                     double dx = look.x * s / 1000.0;
                     double dz = look.z * s / 1000.0;
 
-
+                    if (!vel <= 0) :
                     player.addVelocity(dx, 0, dz);
-
+                    }
 
                     ClientPlayNetworking.send(new SlideVelocityC2SPacket(dx, dz));
                 }
