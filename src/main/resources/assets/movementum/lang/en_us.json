@@ -3,6 +3,7 @@
   "key.movementum.air_jump": "Air Stride",
   "enchantment.movementum.air_stride": "Air Strider",
   "enchantment.movementum.curse_of_movement": "Curse of Atrophy",
-  "enchantment.movementum.dead_mans_sprint": "Dead Man's Sprint"
-  "enchantment.movementum.max_stamina": "Lung Capacity"
+  "enchantment.movementum.dead_mans_sprint": "Dead Man's Sprint",
+  "enchantment.movementum.max_stamina": "Vigor",
+  "enchantment.movementum.regen_speed": "Rapid Recovery"
 }

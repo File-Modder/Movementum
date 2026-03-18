@@ -21,13 +21,12 @@ public class Atrophy {
         ServerTickEvents.END_WORLD_TICK.register(world -> {
             ticks++;
 
-            // ✅ Safe registry access (won’t crash)
+
             Optional<RegistryEntry<Enchantment>> optionalEntry =
                     world.getRegistryManager()
                             .getOptional(RegistryKeys.ENCHANTMENT)
                             .flatMap(registry -> registry.getOptional(ATROPHY_KEY));
 
-            // If enchantment isn't loaded yet, just skip this tick
             if (optionalEntry.isEmpty()) return;
 
             RegistryEntry<Enchantment> atrophy = optionalEntry.get();
@@ -44,8 +43,6 @@ public class Atrophy {
                 if (level >= 1 && !player.isMovingHorizontally() && ticks % 20 == 0) {
                     player.damage(world, world.getDamageSources().magic(), level);
                 }
-
-
             });
         });
     }
