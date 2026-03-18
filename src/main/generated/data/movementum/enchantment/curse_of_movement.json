@@ -6,14 +6,14 @@
   "supported_items": "#minecraft:enchantable/foot_armor",
   "primary_items": "#minecraft:enchantable/foot_armor",
   "weight": 2,
-  "max_level": 1,
+  "max_level": 4,
   "min_cost": {
-    "base": 1,
-    "per_level_above_first": 1
+    "base": 10,
+    "per_level_above_first": 5
   },
   "max_cost": {
-    "base": 1,
-    "per_level_above_first": 1
+    "base": 15,
+    "per_level_above_first": 5
   },
   "anvil_cost": 10,
   "slots": [
@@ -24,7 +24,11 @@
       {
         "attribute": "minecraft:movement_speed",
         "id": "minecraft:",
-        "amount": 0.0125,
+        "amount": {
+          "type": "minecraft:linear",
+          "base": 0.0125,
+          "per_level_above_first": 0.0065
+        },
         "operation": "add_value"
       }
     ]

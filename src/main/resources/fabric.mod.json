@@ -4,9 +4,10 @@
   "version": "${version}",
   "name": "Movementum",
   "description": "",
-  "authors": [],
+  "authors": ["File"],
   "contact": {},
-  "license": "All-Rights-Reserved",
+  "license": "MIT",
+  "icon": "assets/movementum/movementum.png",
   "environment": "*",
   "entrypoints": {
     "client": [
