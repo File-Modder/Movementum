@@ -1,7 +1,5 @@
 # *MOVEMENTUM*
 
-\
-\
 # what is movementum?
 \
 \
