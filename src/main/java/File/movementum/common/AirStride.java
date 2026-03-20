@@ -19,7 +19,7 @@ public class AirStride {
 
     public static void registerStride() {
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
-                if (client.player == null) return;
+            if (client.player == null) return;
             if (client.world == null) return;
 
             String EnchantString = client.player.getEquippedStack(EquipmentSlot.FEET).getEnchantments().toString();
@@ -28,36 +28,65 @@ public class AirStride {
             latch.putIfAbsent(id, false);
 
 
-
             if (client.player.isOnGround() && jump.getOrDefault(id, 0) < 30) {
                 latch.put(id, true);
-            } if (Boolean.TRUE.equals(latch.getOrDefault(id, false)) && jump.getOrDefault(id, 0) >= 30) {
+            }
+            if (Boolean.TRUE.equals(latch.getOrDefault(id, false)) && jump.getOrDefault(id, 0) >= 30) {
                 latch.put(id, false);
-            } if (EnchantString.contains("movementum:air_stride") && Boolean.TRUE.equals(latch.getOrDefault(id, false))) {
+            }
+            if (((EnchantString.contains("movementum:air_stride") || EnchantString.contains("movementum:double_jump"))) && Boolean.TRUE.equals(latch.getOrDefault(id, false))) {
                 jump.put(id, jump.getOrDefault(id, 0) + 1);
-            } if (!EnchantString.contains("movementum:air_stride")) {
+            }
+            if (!(EnchantString.contains("movementum:air_stride") || EnchantString.contains("movementum:double_jump"))) {
                 jump.put(id, 0);
             }
 
-            if (EnchantString.contains("movementum:air_stride")
-                    && !client.player.isOnGround()
-                    && MovementKeybindings.AIR != null
-                    && MovementKeybindings.AIR.wasPressed()
-                    && jump.getOrDefault(id, 0) == 30) {
-                   
-                Vec3d look = client.player.getRotationVec(1);
-                jump.put(id, 0);
-                double dx = look.x * 0.75;
-                double dz = look.z * 0.75;
 
-                client.player.addVelocity(dx, 0.42, dz);
+                if (EnchantString.contains("movementum:air_stride")
+                        && !client.player.isOnGround()
+                        && MovementKeybindings.AIR != null
+                        && MovementKeybindings.AIR.wasPressed()
+                        && jump.getOrDefault(id, 0) == 30) {
 
-                ClientPlayNetworking.send(new AirStrideC2SPacket(dx, dz));
+                    Vec3d look = client.player.getRotationVec(1);
+                    jump.put(id, 0);
 
-                for (int i = 0; i < 13; i++) {
-                    client.world.addImportantParticleClient(ParticleTypes.CLOUD, true, client.player.getX(), client.player.getY(), client.player.getZ(), (Math.random()) * -0.25, (Math.random() * -0.07), (Math.random() * -0.25));
+                    double dx = look.x * 0.75;
+                    double dy = 0.42;
+                    double dz = look.z * 0.75;
+
+                    client.player.addVelocity(dx, dy, dz);
+                    client.player.velocityDirty = true;
+
+                    ClientPlayNetworking.send(new AirStrideC2SPacket(dx, dy, dz));
+
+                    for (int i = 0; i < 13; i++) {
+                        client.world.addImportantParticleClient(ParticleTypes.CLOUD, true, client.player.getX(), client.player.getY(), client.player.getZ(), (Math.random()) * -0.25, (Math.random() * -0.07), (Math.random() * -0.25));
+                    }
                 }
-            }
+                else if (EnchantString.contains("movementum:double_jump")
+                        && !client.player.isOnGround()
+                        && MovementKeybindings.AIR != null
+                        && MovementKeybindings.AIR.wasPressed()
+                        && jump.getOrDefault(id, 0) == 30) {
+
+                    jump.put(id, 0);
+
+                    double dx = 0;
+                    double dy = 0.6;
+                    double dz = 0;
+
+                    client.player.addVelocity(dx, dy, dz);
+                    client.player.velocityDirty = true;
+
+                    
+                    ClientPlayNetworking.send(new AirStrideC2SPacket(dx, dy, dz));
+
+                    for (int i = 0; i < 13; i++) {
+                        client.world.addImportantParticleClient(ParticleTypes.CLOUD, true, client.player.getX(), client.player.getY(), client.player.getZ(),0, (Math.random() * -0.07),0);
+                    }
+                }
+
         });
     }
 }

@@ -81,7 +81,11 @@ public class Slide {
                     client.player.getEquippedStack(EquipmentSlot.CHEST)
             );
 
-            if (lung == 1) {
+
+            if (lung == 0) {
+                staminaMax.put(id, 2000);
+            }
+            else if (lung == 1) {
                 staminaMax.put(id, 2500);
             }
             else if (lung == 2) {
@@ -97,7 +101,10 @@ public class Slide {
                 staminaMax.put(id, 5000);
             }
 
-            if (regen_speed == 1) {
+            else if (regen_speed == 0) {
+                regenSpeed.put(id, 10);
+            }
+            else if (regen_speed == 1) {
                 regenSpeed.put(id, 15);
             }
             else if (regen_speed == 2) {
@@ -202,17 +209,11 @@ public class Slide {
 
             if (isSliding && stamina.get(id) > 0) {
                 client.player.addVelocity(dx, 0, dz);
+                client.player.velocityDirty = true;
             }
 
             ClientPlayNetworking.send(new SlideVelocityC2SPacket(dx, dz));
         });
     }
 
-    public static boolean getSliding() {
-        return isSliding;
-    }
-
-    public static boolean getStanding() {
-        return isStanding;
-    }
 }

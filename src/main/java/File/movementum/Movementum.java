@@ -36,6 +36,7 @@ public class Movementum implements ModInitializer {
 
                     context.server().execute(() -> {
                         context.player().addVelocity(payload.velX(), 0, payload.velZ());
+                        context.player().velocityDirty = true;
                     });
                 }
         );
@@ -43,7 +44,8 @@ public class Movementum implements ModInitializer {
                 AirStrideC2SPacket.PACKET_ID,
                 (payload, context) -> {
                     context.server().execute(() -> {
-                        context.player().addVelocity(payload.velX(), 0.42, payload.velZ());
+                        context.player().addVelocity(payload.velX(), payload.velY(), payload.velZ());
+                        context.player().velocityDirty = true;
                     });
                 }
         );

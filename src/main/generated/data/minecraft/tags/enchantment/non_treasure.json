@@ -3,6 +3,7 @@
   "values": [
     "movementum:air_stride",
     "movementum:dead_mans_sprint",
-    "movementum:max_stamina"
+    "movementum:max_stamina",
+    "movementum:regen_speed"
   ]
 }
