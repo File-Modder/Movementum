@@ -46,11 +46,13 @@ public class Slide {
 
     public static void registerSlide() {
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
+
+
             if (client.player == null) return;
             if (client.world == null) return;
             UUID id = client.player.getUuid();
 
-
+            System.out.println(regenSpeed.get(client.player.getUuid()));
             stamina.putIfAbsent(id, 2000);
             staminaMax.putIfAbsent(id, 2000);
             speed.putIfAbsent(id, 0);
@@ -101,7 +103,7 @@ public class Slide {
                 staminaMax.put(id, 5000);
             }
 
-            else if (regen_speed == 0) {
+            if (regen_speed == 0) {
                 regenSpeed.put(id, 10);
             }
             else if (regen_speed == 1) {
@@ -113,7 +115,6 @@ public class Slide {
             else if (regen_speed == 3) {
                 regenSpeed.put(id, 25);
             }
-
 
 
 

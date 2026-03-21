@@ -6,6 +6,7 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 
+import static File.movementum.common.AirStride.latch;
 import static File.movementum.common.Atrophy.registerAtrophy;
 import static File.movementum.common.DeadMansSprint.registerDeadMansSprint;
 import static File.movementum.enchantment.ModEnchantmentEffects.registerModEnchantmentEffects;
@@ -46,6 +47,9 @@ public class Movementum implements ModInitializer {
                     context.server().execute(() -> {
                         context.player().addVelocity(payload.velX(), payload.velY(), payload.velZ());
                         context.player().velocityDirty = true;
+                        if (Boolean.FALSE.equals(latch.get(context.player().getUuid()))) {
+                            context.player().fallDistance = 0;
+                        }
                     });
                 }
         );

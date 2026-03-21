@@ -14,7 +14,7 @@ import java.util.UUID;
 
 public class AirStride {
 
-    private static final Map<UUID, Boolean> latch = new HashMap<>();
+    public static final Map<UUID, Boolean> latch = new HashMap<>();
     public static final Map<UUID, Integer> jump = new HashMap<>();
 
     public static void registerStride() {
@@ -45,7 +45,7 @@ public class AirStride {
                 if (EnchantString.contains("movementum:air_stride")
                         && !client.player.isOnGround()
                         && MovementKeybindings.AIR != null
-                        && MovementKeybindings.AIR.wasPressed()
+                        && MovementKeybindings.AIR.isPressed()
                         && jump.getOrDefault(id, 0) == 30) {
 
                     Vec3d look = client.player.getRotationVec(1);
@@ -67,13 +67,13 @@ public class AirStride {
                 else if (EnchantString.contains("movementum:double_jump")
                         && !client.player.isOnGround()
                         && MovementKeybindings.AIR != null
-                        && MovementKeybindings.AIR.wasPressed()
+                        && MovementKeybindings.AIR.isPressed()
                         && jump.getOrDefault(id, 0) == 30) {
 
                     jump.put(id, 0);
 
                     double dx = 0;
-                    double dy = 0.6;
+                    double dy = 1;
                     double dz = 0;
 
                     client.player.addVelocity(dx, dy, dz);
