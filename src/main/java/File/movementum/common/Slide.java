@@ -46,13 +46,11 @@ public class Slide {
 
     public static void registerSlide() {
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
-
-
             if (client.player == null) return;
             if (client.world == null) return;
             UUID id = client.player.getUuid();
 
-            System.out.println(regenSpeed.get(client.player.getUuid()));
+
             stamina.putIfAbsent(id, 2000);
             staminaMax.putIfAbsent(id, 2000);
             speed.putIfAbsent(id, 0);
