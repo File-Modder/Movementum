@@ -12,7 +12,7 @@ movementum id a minecrsft mod that aims to add extra movement options into minec
 
 | - File (Lead Developer)
 \
-| - MozzieGlazer (Bug Tester, Ideas Helper, Developer)
+| - MozzieGlazer (Bug Tester, Ideas Helper)
 \
 | - Oofie (Animator)
 \
