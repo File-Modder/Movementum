@@ -14,6 +14,8 @@ movementum id a minecrsft mod that aims to add extra movement options into minec
 \
 | - MozzieGlazer (Bug Tester, Ideas Helper)
 \
+| - [ItsInfinity](https://www.youtube.com/@ItsInf) (Wiki Maintainer)
+\
 | - Oofie (Animator)
 \
 | - Ransom (Animator)
