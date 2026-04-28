@@ -12,12 +12,29 @@ movementum id a minecrsft mod that aims to add extra movement options into minec
 
 | - File (Lead Developer)
 \
-| - MozzieGlazer (Bug Tester, Ideas Helper)
-\
 | - [ItsInfinity](https://www.youtube.com/@ItsInf) (Wiki Maintainer)
 \
 | - Oofie (Animator)
 \
 | - Ransom (Animator)
 \
-| - Jackson/Ender (Artist)
+| - Jackson/Ender (Logo Artist)
+
+\
+# Special Thanks To My:
+
+<details>
+<summary> <b> QA Testers </b> </summary>
+<li> ItsInfinity </li>
+<li> Ivory </li>
+<li> Mozzie Glazer </li>
+</details>
+
+<details>
+<summary> <b> Play Testers </b> </summary>
+<li> ItsInfinity </li>
+<li> Ivory </li>
+<li> GamerRansoom </li>
+<li> Phantolottle </li>
+<li> TheGreatPotatoMuncher </li>
+</details>
