@@ -20,7 +20,7 @@ movementum id a minecrsft mod that aims to add extra movement options into minec
 \
 | - Jackson/Ender (Logo Artist)
 
-\
+
 # Special Thanks To My:
 
 <details>
