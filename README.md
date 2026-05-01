@@ -36,6 +36,8 @@ Movementum is a versitile Mincraft mod that aims to improve the slow feeling of 
 <li> Ivory </li>
 <li> GamerRansoom </li>
 <li> Phantolottle </li>
+<li> JJ18519 </li>
+<li> TheBigBaggy </li>
 <li> TheGreatPotatoMuncher </li>
 </details>
 
