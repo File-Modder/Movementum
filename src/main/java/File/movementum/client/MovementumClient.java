@@ -2,6 +2,7 @@ package File.movementum.client;
 
 import net.fabricmc.api.ClientModInitializer;
 
+import static File.movementum.client.WallRunClient.registerClientWallRun;
 import static File.movementum.common.AirStride.registerStride;
 import static File.movementum.common.Slide.registerSlide;
 
@@ -13,5 +14,6 @@ public class MovementumClient implements ClientModInitializer {
         File.movementum.animations.controller.registerController();
         registerSlide();
         registerStride();
+        registerClientWallRun();
     }
 }

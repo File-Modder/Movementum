@@ -11,6 +11,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import java.util.UUID;
+
 @Mixin(Camera.class)
 public abstract class CameraMixin {
 
@@ -24,6 +26,8 @@ public abstract class CameraMixin {
 
     @Inject(method = "update", at = @At("TAIL"))
     private void cameraOverride(CallbackInfo ci) {
+        if (MinecraftClient.getInstance().player == null) return;
+        UUID id = MinecraftClient.getInstance().player.getUuid();
 
         MinecraftClient client = MinecraftClient.getInstance();
         if (client.player == null) {
@@ -47,7 +51,7 @@ public abstract class CameraMixin {
         double targetY = basePos.y + client.player.getEyeHeight(client.player.getPose());
         double targetZ = basePos.z;
 
-        if (Slide.isSliding) {
+        if (Slide.isSliding.getOrDefault(id, false)) {
             targetY -= 0.3;
         }
 

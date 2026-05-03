@@ -22,6 +22,7 @@ repositories {
         name = "RedlanceMinecraft"
         url = "https://repo.redlance.org/public"
     }
+
 }
 
 loom {

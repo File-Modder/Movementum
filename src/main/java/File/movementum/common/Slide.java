@@ -25,6 +25,7 @@ import java.util.UUID;
 
 import static File.movementum.animations.AnimationDefiner.SLIDING;
 import static File.movementum.common.AirStride.jump;
+import static File.movementum.common.AirStride.stride;
 import static com.zigythebird.playeranim.PlayerAnimLibMod.ANIMATION_LAYER_ID;
 
 public class Slide {
@@ -36,12 +37,12 @@ public class Slide {
 
 
 
-    private static final Map<UUID, Integer> stamina = new HashMap<>();
+    public static final Map<UUID, Integer> stamina = new HashMap<>();
     private static final Map<UUID, Integer> speed = new HashMap<>();
     private static final Map<UUID, Integer> staminaMax = new HashMap<>();
     private static final Map<UUID, Integer> regenSpeed = new HashMap<>();
+    public static final Map<UUID, Boolean> isSliding = new HashMap<>();
 
-    public static boolean isSliding = false;
     public static boolean isStanding = false;
 
     public static void registerSlide() {
@@ -50,8 +51,9 @@ public class Slide {
             if (client.world == null) return;
             UUID id = client.player.getUuid();
 
-
+            isSliding.putIfAbsent(id, false);
             stamina.putIfAbsent(id, 2000);
+            if (stamina.get(id) < 0) stamina.put(id, 0);
             staminaMax.putIfAbsent(id, 2000);
             speed.putIfAbsent(id, 0);
             regenSpeed.putIfAbsent(id, 10);
@@ -81,7 +83,6 @@ public class Slide {
                     client.player.getEquippedStack(EquipmentSlot.CHEST)
             );
 
-
             if (lung == 0) {
                 staminaMax.put(id, 2000);
             }
@@ -102,16 +103,16 @@ public class Slide {
             }
 
             if (regen_speed == 0) {
-                regenSpeed.put(id, 10);
+                    regenSpeed.put(id, 10);
             }
             else if (regen_speed == 1) {
-                regenSpeed.put(id, 15);
+                    regenSpeed.put(id, 15);
             }
             else if (regen_speed == 2) {
-                regenSpeed.put(id, 20);
+                    regenSpeed.put(id, 20);
             }
             else if (regen_speed == 3) {
-                regenSpeed.put(id, 25);
+                    regenSpeed.put(id, 25);
             }
 
 
@@ -119,7 +120,7 @@ public class Slide {
 
 
 
-            client.player.sendMessage(Text.literal(stamina.get(id) + " stamina, Air Stride " + jump.get(id)), true);
+            client.player.sendMessage(Text.literal(stamina.get(id) + " stamina, Air Stride " + stride.get(id) + " double jump " + jump.get(id)), true);
 
 
 
@@ -134,13 +135,13 @@ public class Slide {
                 && !client.player.isInFluid()
                 && !client.player.isSleeping()
                 && !client.player.isJumping()) {
-                isSliding = true;
+                isSliding.put(id, true);
             } else {
-                isSliding = false;
+                isSliding.put(id, false);
             }
 
             if (client.player.isOnGround()
-                && !isSliding
+                && !isSliding.get(id)
                 && !client.player.isSprinting()
                 && !client.player.isMovingHorizontally()
                 && !client.player.isSwimming()
@@ -160,7 +161,7 @@ public class Slide {
                 );
 
             if (controller != null) {
-                if (isSliding) {
+                if (isSliding.get(id)) {
                     controller.replaceAnimationWithFade(
                         AbstractFadeModifier.standardFadeIn(3, EasingType.EASE_IN_BACK),
                         SLIDING
@@ -170,14 +171,17 @@ public class Slide {
                 }
             }
 
-            if (isSliding) {
+            if (isSliding.get(id)) {
                 if (stamina.get(id) > 0) {
                     stamina.put(id, stamina.get(id) - 10);
                 }
-            } else if (!isStanding && stamina.get(id) < staminaMax.get(id)) {
-                stamina.put(id, stamina.get(id) + regenSpeed.get(id));
-            } else if (isStanding && stamina.get(id) < staminaMax.get(id)) {
-                stamina.put(id, stamina.get(id) + regenSpeed.get(id) + 15);
+            } else if (stamina.get(id) < staminaMax.get(id)) {
+
+                if (isStanding) {
+                    stamina.put(id, stamina.get(id) + regenSpeed.get(id) + 15);
+                } else {
+                    stamina.put(id, stamina.get(id) + regenSpeed.get(id));
+                }
             }
 
             if (stamina.get(id) > staminaMax.get(id)) {
@@ -206,7 +210,7 @@ public class Slide {
             double dx = look.x * speed.get(id) / 1000.0;
             double dz = look.z * speed.get(id) / 1000.0;
 
-            if (isSliding && stamina.get(id) > 0) {
+            if (isSliding.get(id) && stamina.get(id) > 0) {
                 client.player.addVelocity(dx, 0, dz);
                 client.player.velocityDirty = true;
             }
@@ -214,5 +218,4 @@ public class Slide {
             ClientPlayNetworking.send(new SlideVelocityC2SPacket(dx, dz));
         });
     }
-
 }
